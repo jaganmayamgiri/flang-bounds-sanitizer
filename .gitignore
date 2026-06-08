@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+dist/
+.env
+.bin/
+.npm/
+*.tsbuildinfo
+
+# Fortran & C compilations
+*.o
+*.mod
+*_exe
+*_instrumented.f90
+demo/jacobi_2d_base
+demo/jacobi_2d_inst
+demo/gemm_base
+demo/gemm_inst
+demo/heat_3d_base
+demo/heat_3d_inst
+test_out
+test_out.*
+scratch_*
+test_desc*
+oob_assumed_shape_1d_instrumented.o
+
+# Python caches
+__pycache__/
+*.pyc
+
+# IDEs & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,27 @@
+diff --git a/flang/include/flang/Driver/Options.td b/flang/include/flang/Driver/Options.td
+index a7b8c9d..e6c7d8f 100644
+--- a/flang/include/flang/Driver/Options.td
++++ b/flang/include/flang/Driver/Options.td
+@@ -123,6 +123,10 @@ def fcheck_EQ : Joined<["-"], "fcheck=">,
+   Group<f_Group>, Flags<[FlangOption, CC1Option]>,
+   HelpText<"Enable runtime checks. Supported: bounds">;
+ 
+diff --git a/flang/lib/Frontend/CompilerInvocation.cpp b/flang/lib/Frontend/CompilerInvocation.cpp
+index 8e3c4b9..a12d3e4 100644
+--- a/flang/lib/Frontend/CompilerInvocation.cpp
++++ b/flang/lib/Frontend/CompilerInvocation.cpp
+@@ -342,6 +342,11 @@ bool CompilerInvocation::CreateFromArgs(CompilerInvocation &Res,
+   if (Args.hasFlag(clang::driver::options::OPT_fcheck_EQ, clang::driver::options::OPT_fno_check_EQ, false)) {
+     StringRef Val = Args.getLastArgValue(clang::driver::options::OPT_fcheck_EQ);
+     if (Val == "bounds" || Val == "all")
+       Opts.BoundsCheck = true;
+   }
+ 
+diff --git a/flang/lib/Frontend/FrontendActions.cpp b/flang/lib/Frontend/FrontendActions.cpp
+index d1b82e1..c29d3b4 100644
+--- a/flang/lib/Frontend/FrontendActions.cpp
++++ b/flang/lib/Frontend/FrontendActions.cpp
+@@ -82,6 +82,9 @@ void CodeGenAction::runOptimizationPipeline(llvm::raw_pwrite_stream &os) {
+   if (CI.getInvocation().getFrontendOpts().BoundsCheck) {
+     pm.addPass(hlfir::createHLFIRBoundsCheckPass());
+   }
